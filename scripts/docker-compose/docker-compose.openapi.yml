@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  base: &base
+    image: openapitools/openapi-generator-cli@sha256:f709095697760d653e28caa4897da88399f57054ee7302b33680edefbf39d828
+    user: "${RUN_UID}:${RUN_GID}"
+    volumes:
+      - ../../:/opt/nest-base
+    working_dir: /opt/nest-base
+  generate-user:
+    <<: *base
+    command: generate -i /opt/nest-base/openapi/user.yaml -g typescript-nestjs --additional-properties=enumPropertyNaming=original,stringEnums=true -o /opt/nest-base/generated/user-ts

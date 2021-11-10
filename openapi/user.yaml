@@ -1,0 +1,85 @@
+openapi: 3.0.1
+info:
+  title: User Example
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      operationId: getAllUser
+      responses:
+        '200':
+          description: Get all User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /users/create:
+    post:
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user-registration'
+      responses:
+        '200':
+          description: Creates an User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+  /users/{username}:
+    get:
+      operationId: getUserByName
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+components:
+  schemas:
+    user-registration:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - username
+        - email
+      properties:
+        firstname:
+           type: string
+        lastname:
+           type: string
+        username:
+           type: string
+        email:
+          type: string
+    user:
+      type: object
+      required:
+        - id
+        - firstname
+        - lastname
+        - username
+        - email
+      properties:
+        id:
+          type: number
+        firstname:
+          type: string
+        lastname:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+
